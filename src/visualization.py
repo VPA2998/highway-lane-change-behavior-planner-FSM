@@ -1,11 +1,10 @@
 """
 Visualization utilities for the highway lane-change FSM planner.
 """
-
-from typing import Dict, List
-
+import os
 import matplotlib.pyplot as plt
-
+from typing import Dict, List
+import matplotlib.pyplot as plt
 from .highway_world import Vehicle
 
 
@@ -14,19 +13,13 @@ def plot_highway_snapshot(
     ego: Vehicle,
     length: float = 300.0,
     lanes: int = 3,
+    save_path: str | None = "docs/highway_snapshot.png",
 ) -> None:
-    """
-    Draw a snapshot of the highway:
-    - x-axis: s along road
-    - y-axis: lane index. [file:16]
-    """
     plt.figure(figsize=(10, 4))
 
-    # Draw lane lines
     for lane in range(lanes):
         plt.hlines(lane, 0, length, colors="lightgray")
 
-    # Draw vehicles
     for v in vehicles:
         if v.is_ego:
             plt.scatter(v.s, v.lane, marker="s", s=100, label="ego", color="red")
@@ -41,13 +34,19 @@ def plot_highway_snapshot(
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
-    plt.show()
+
+    if save_path is not None:
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        plt.savefig(save_path, dpi=150)
+
+    plt.close()
 
 
-def plot_behavior_over_time(history: Dict[str, List]) -> None:
-    """
-    Plot ego speed and discrete behavior state over time. [file:16]
-    """
+
+def plot_behavior_over_time(
+    history: Dict[str, List],
+    save_path: str | None = "docs/behavior_over_time.png",
+) -> None:
     times = history["time"]
     speed = history["speed"]
     states = history["state"]
@@ -72,4 +71,9 @@ def plot_behavior_over_time(history: Dict[str, List]) -> None:
     axs[1].grid(True)
 
     plt.tight_layout()
-    plt.show()
+
+    if save_path is not None:
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        plt.savefig(save_path, dpi=150)
+
+    plt.close()
