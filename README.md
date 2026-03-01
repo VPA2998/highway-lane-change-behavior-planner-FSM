@@ -2,7 +2,7 @@
 
 This project implements an advanced **highway behavior planner** for an ego vehicle using a **Finite State Machine (FSM)** with cost‑based transitions and a simple multi‑lane highway world.
 
-The code is split into a reusable Python package under `src/` plus a teaching notebook under `notebooks/`. The `docs/` folder contains generated figures.[file:16]
+The code is split into a reusable Python package under `src/` plus a teaching notebook under `notebooks/`. The `docs/` folder contains generated figures.
 
 ---
 
@@ -37,7 +37,17 @@ HIGHWAY-LANE-CHANGE-BEHAVIOR-PLANNER-FSM
 
 This project implements a highway lane-change behavior planner using a cost-based Finite State Machine (FSM). 
 
-An ego vehicle drives on a three-lane highway with randomly placed vehicles and selects behaviors such as CRUISE, FOLLOW, STOP, LANE_CHANGE_LEFT, LANE_CHANGE_RIGHT, and ACCELERATE based on transition costs and traffic-dependent penalties. 
+An ego vehicle drives on a three-lane highway with randomly placed vehicles and selects behaviors based on transition costs and traffic-dependent penalties such as, 
+```bash
+ {
+    CRUISE, 
+    FOLLOW, 
+    STOP, 
+    LANE_CHANGE_LEFT,
+    LANE_CHANGE_RIGHT,
+    ACCELERATE
+}
+``` 
 
 ## Key features
 
@@ -45,7 +55,7 @@ An ego vehicle drives on a three-lane highway with randomly placed vehicles and 
 - Simple 3-lane highway world with ego and randomly placed surrounding vehicles. 
 - Perception logic that computes distances to nearest vehicles in same and adjacent lanes.
 - Behavior selection using base transition costs plus traffic penalties (safety, lane availability, inertia). 
-- Modular Python design (`states`, `highway_world`, `behavior_sm`, `simulation`, `visualization`). [file:16]
+- Modular Python design (`states`, `highway_world`, `behavior_sm`, `simulation`, `visualization`).
 - CLI demo that runs the simulation and saves plots into `docs/`. 
 
 ## Code structure
