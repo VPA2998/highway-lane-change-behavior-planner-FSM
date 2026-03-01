@@ -1,23 +1,36 @@
-# Highway Lane-Change Behavior Planner (FSM)
+# Highway Lane-Change Behavior Planning (FSM)
 
-This project implements a cost-based behavior planner for highway lane changes using a Finite State Machine (FSM).
-It simulates an ego vehicle on a 3-lane highway with randomly placed vehicles and selects behaviors such as CRUISE, FOLLOW, STOP, LANE_CHANGE_LEFT, LANE_CHANGE_RIGHT, and ACCELERATE based on transition costs and distances to nearby cars.
+This project implements an advanced **highway behavior planner** for an ego vehicle using a **Finite State Machine (FSM)** with cost‑based transitions and a simple multi‑lane highway world.
 
-## How to run (Python)
+The code is split into a reusable Python package under `src/` plus a teaching notebook under `notebooks/`. The `docs/` folder contains generated figures.[file:16]
 
-You can run the FSM simulation and visualize the results from a Python session:
+---
 
-```python
-from src.simulation import run_simulation
-from src.visualization import plot_highway_snapshot, plot_behavior_over_time
+## Repository structure
 
-vehicles, history = run_simulation(steps=30)
-
-# Ego is the first vehicle in the list
-ego = next(v for v in vehicles if v.is_ego)
-
-plot_highway_snapshot(vehicles, ego)
-plot_behavior_over_time(history)
+```text
+HIGHWAY-LANE-CHANGE-BEHAVIOR-PLANNER-FSM
+├── app/                   # (optional) app/entrypoint code
+├── data/                  # input data, logs, scenario files (currently empty)
+├── docs/                  # top-level documentation (you can move PNGs here)
+├── notebooks/
+│   └── docs/
+│       ├── behavior_over_time.png
+│       ├── highway_snapshot.png
+│       └── Projekt_2_Behavior_Planning_FSM.ipynb
+├── scripts/
+│   └── demo.py            # example script using the library
+├── src/
+│   ├── __init__.py        # package init
+│   ├── behavior_sm.py     # FSM + cost-based behavior planner
+│   ├── highway_world.py   # highway & vehicle model
+│   ├── simulation.py      # simulation loop and history handling
+│   ├── states.py          # state definitions, base transition costs
+│   └── visualization.py   # plotting utilities
+├── tests/                 # unit / regression tests
+├── venv/                  # local virtualenv (not for git)
+├── README.md
+└── requirements.txt
 ```
 
 ## Project overview
@@ -45,7 +58,42 @@ An ego vehicle drives on a three-lane highway with randomly placed vehicles and 
 - `src/visualization.py` – functions to save highway snapshot and behavior-over-time plots to `docs/`.
 - `scripts/demo.py` – command-line entry point to run the planner.
 
-## How to run
+### Results:
+
+**Behavior state over time**
+![behavior over time](docs/behavior_over_time.png)
+
+
+**Highway Snapshot(Simulated)**
+![highway snapshot](docs/highway_snapshot.png)
+
+
+**Finite State Machines Graph**
+![Finite State Machines Graph](docs/FSM%20graph_output.png)
+
+---
+
+
+## How to run 
+
+### **A**
+
+You can run the FSM simulation and visualize the results from a Python session:
+
+```python
+from src.simulation import run_simulation
+from src.visualization import plot_highway_snapshot, plot_behavior_over_time
+
+vehicles, history = run_simulation(steps=30)
+
+# Ego is the first vehicle in the list
+ego = next(v for v in vehicles if v.is_ego)
+
+plot_highway_snapshot(vehicles, ego)
+plot_behavior_over_time(history)
+```
+
+### **B**
 
 Create and activate a virtual environment, then install dependencies:
 
